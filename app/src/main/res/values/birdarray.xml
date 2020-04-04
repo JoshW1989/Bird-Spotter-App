@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="birds">
+        <item>Magpie</item>
+        <item>Pigeon</item>
+        <item>Robin</item>
+        <item>Emu</item>
+        <item>Big Hooty Boi</item>
+        <item>Scary Boi</item>
+    </string-array>
+
+    // Filling the array from XML String Array
+    String shortcuts[] = getResources().getStringArray(R.array.shortcuts);
+</resources>
+
