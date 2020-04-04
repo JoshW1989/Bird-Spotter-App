@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.ListPreference;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -27,7 +28,7 @@ public class AddActivity extends AppCompatActivity {
     // Connection to the Viewmodel to communicate with SQL Database
     private BirdViewModel birdViewModel;
 
-    private EditText editTextName;
+
     private EditText editTextDesc;
     private EditText editTextLoc;
     private EditText editTextDateD;
@@ -54,6 +55,8 @@ public class AddActivity extends AppCompatActivity {
 
 
 
+
+
         for (int i = 0; i < 6; i++) {
 
             View view = inflater.inflate(R.layout.bird_scroll, gallery, false);
@@ -76,7 +79,12 @@ public class AddActivity extends AppCompatActivity {
         editTextDateY = findViewById(R.id.edit_text_DateY);
 
 
-        // here
+
+
+
+
+
+            // here
         // Sets the back symbol as a button to go to home (this change is program wide)
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
         setTitle("Add new bird");
@@ -84,52 +92,100 @@ public class AddActivity extends AppCompatActivity {
     }
 
     // Adds a bird to the database and navigates to the landing page
-    private void SaveBird(){
+    private void SaveBird() {
+        String desc = editTextDesc.getText().toString();
+        String loc = editTextLoc.getText().toString();
+        String dateD = editTextDateD.getText().toString();
+        String dateM = editTextDateM.getText().toString();
+        String dateY = editTextDateY.getText().toString();
+        String date = dateD + "/" + dateM + "/" + dateY;
 
-
-
-
-            String desc = editTextDesc.getText().toString();
-            String loc = editTextLoc.getText().toString();
-            String dateD = editTextDateD.getText().toString();
-            String dateM = editTextDateM.getText().toString();
-            String dateY = editTextDateY.getText().toString();
-            String date = dateD + "/" + dateM + "/" + dateY;
+        //Validates user entry for logging bird fields
+        //Ensures fields are not blank
+        if (editTextDesc.getText().toString().contentEquals("") &&
+                editTextLoc.getText().toString().contentEquals("") &&
+                (editTextDateD.getText().toString().contentEquals("") ||
+                        editTextDateM.getText().toString().contentEquals("") ||
+                        editTextDateY.getText().toString().contentEquals(""))) {
+            Toast.makeText(this, "Desc/Date/Location cannot be blank!", Toast.LENGTH_LONG).show();
+        } else if (editTextDesc.getText().toString().contentEquals("") &&
+                editTextLoc.getText().toString().contentEquals("")) {
+            Toast.makeText(this, "Desc/Location cannot be blank!", Toast.LENGTH_LONG).show();
+        } else if (editTextDesc.getText().toString().contentEquals("") &&
+                (editTextDateD.getText().toString().contentEquals("") ||
+                        editTextDateM.getText().toString().contentEquals("") ||
+                        editTextDateY.getText().toString().contentEquals(""))) {
+            Toast.makeText(this, "Desc/Date cannot be blank!", Toast.LENGTH_LONG).show();
+        } else if (editTextLoc.getText().toString().contentEquals("") &&
+                (editTextDateD.getText().toString().contentEquals("") ||
+                        editTextDateM.getText().toString().contentEquals("") ||
+                        editTextDateY.getText().toString().contentEquals(""))) {
+            Toast.makeText(this, "Desc/Location/Date cannot be blank!", Toast.LENGTH_LONG).show();
+        } else if (editTextDesc.getText().toString().contentEquals("")) {
+            Toast.makeText(this, "Desc cannot be blank!", Toast.LENGTH_LONG).show();
+        } else if ((editTextDateD.getText().toString().contentEquals("") ||
+                editTextDateM.getText().toString().contentEquals("") ||
+                editTextDateY.getText().toString().contentEquals(""))) {
+            Toast.makeText(this, "Date cannot be blank!", Toast.LENGTH_LONG).show();
+        } else if (editTextDesc.getText().toString().contentEquals("") &&
+                editTextLoc.getText().toString().contentEquals("")) {
+            Toast.makeText(this, "Desc/Location cannot be blank!", Toast.LENGTH_LONG).show();
+        } else if (editTextDesc.getText().toString().contentEquals("") &&
+                (editTextDateD.getText().toString().contentEquals("") &&
+                        editTextDateM.getText().toString().contentEquals("") &&
+                        editTextDateY.getText().toString().contentEquals(""))) {
+            Toast.makeText(this, "Desc/Date cannot be blank!", Toast.LENGTH_LONG).show();
+        } else if (editTextLoc.getText().toString().contentEquals("") &&
+                (editTextDateD.getText().toString().contentEquals("") ||
+                        editTextDateM.getText().toString().contentEquals("") ||
+                        editTextDateY.getText().toString().contentEquals(""))) {
+            Toast.makeText(this, "Location/Date cannot be blank!", Toast.LENGTH_LONG).show();
+        } else if (editTextDesc.getText().toString().contentEquals("")) {
+            Toast.makeText(this, "Desc cannot be blank!", Toast.LENGTH_LONG).show();
+        } else if (editTextLoc.getText().toString().contentEquals("")) {
+            Toast.makeText(this, "Location cannot be blank!", Toast.LENGTH_LONG).show();
+        } else if (editTextDateD.getText().toString().contentEquals("") ||
+                editTextDateM.getText().toString().contentEquals("") ||
+                editTextDateY.getText().toString().contentEquals("")) {
+            Toast.makeText(this, "Date cannot be blank!", Toast.LENGTH_LONG).show();
+        } else {
 
             //used for date check
             Integer intdateY = Integer.parseInt(dateY);
             Integer intdateM = Integer.parseInt(dateM);
             Integer intdateD = Integer.parseInt(dateD);
-            Calendar currentC = Calendar.getInstance();
 
+
+            Calendar currentC = Calendar.getInstance();
             // Sets the calendar to todays date
             currentC.set(Calendar.HOUR_OF_DAY, 23);
             currentC.set(Calendar.MINUTE, 59);
-            currentC.set(Calendar.SECOND, 59);
-            currentC.set(Calendar.MILLISECOND, 99999999);
             Date currentDate = currentC.getTime();
 
-            //Reuse the previous calendar and uses it to set entered date
-            currentC.set(Calendar.YEAR, intdateY);
-            currentC.set(Calendar.MONTH, intdateM);
-            currentC.set(Calendar.DAY_OF_MONTH, intdateD);
-            Date dateCheck = currentC.getTime();
 
-            if (dateCheck.before(currentDate)){
+
+            Calendar givenC = Calendar.getInstance();
+
+            //Reuse the previous calendar and uses it to set entered date
+            givenC.set(Calendar.YEAR, intdateY);
+            givenC.set(Calendar.MONTH, intdateM - 1);
+            givenC.set(Calendar.DAY_OF_MONTH, intdateD);
+            Date dateCheck = givenC.getTime();
+
+            if (dateCheck.before(currentDate)) {
                 Intent intent = new Intent(AddActivity.this, LandingActivity.class);
-                Bird bird = new Bird(submitName,desc,loc,date);
+                Bird bird = new Bird(submitName, desc, loc, date);
                 birdViewModel.insert(bird);
 
-                Toast.makeText(this,"Sighting added", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Sighting added", Toast.LENGTH_LONG).show();
 
-                startActivity(intent);}
-
-            else {
+                startActivity(intent);
+            } else {
                 Toast.makeText(this, "Date is incorrect", Toast.LENGTH_LONG).show();
             }
 
         }
-
+    }
 
     // OnClick function for the submit button
     public void submitBird(View view) {
