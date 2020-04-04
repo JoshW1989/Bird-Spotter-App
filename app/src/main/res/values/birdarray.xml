@@ -5,8 +5,8 @@
         <item>Pigeon</item>
         <item>Robin</item>
         <item>Emu</item>
-        <item>Big Hooty Boi</item>
-        <item>Scary Boi</item>
+        <item>Owl</item>
+        <item>Eagle</item>
     </string-array>
 
     // Filling the array from XML String Array
