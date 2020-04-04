@@ -36,6 +36,8 @@ public class AddActivity extends AppCompatActivity {
     public  String   submitName;
 
 
+    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

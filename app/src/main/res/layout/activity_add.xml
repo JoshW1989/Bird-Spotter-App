@@ -35,45 +35,47 @@
         android:id="@+id/edit_text_DateD"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="16dp"
         android:layout_marginBottom="152dp"
         android:ems="10"
         android:inputType="numberDecimal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.642" />
+        app:layout_constraintVertical_bias="0.672" />
 
     <EditText
         android:id="@+id/edit_text_DateM"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="336dp"
+        android:layout_marginStart="48dp"
         android:ems="10"
         android:inputType="numberDecimal"
         android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView3"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.497" />
 
     <EditText
         android:id="@+id/edit_text_DateY"
-        android:layout_width="58dp"
-        android:layout_height="55dp"
+        android:layout_width="53dp"
+        android:layout_height="51dp"
         android:ems="10"
         android:inputType="numberDecimal"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.523"
+        app:layout_constraintHorizontal_bias="0.277"
         app:layout_constraintStart_toEndOf="@+id/textView4"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.499" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="15dp"
         android:layout_height="31dp"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="24dp"
         android:text="/"
         android:textAlignment="center"
         android:textSize="24sp"
@@ -86,7 +88,7 @@
         android:id="@+id/textView4"
         android:layout_width="17dp"
         android:layout_height="29dp"
-        android:layout_marginStart="44dp"
+        android:layout_marginStart="28dp"
         android:text="/"
         android:textAlignment="center"
         android:textSize="24sp"
@@ -94,7 +96,6 @@
         app:layout_constraintStart_toEndOf="@+id/edit_text_DateM"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.494" />
-
     <Button
         android:id="@+id/button4"
         android:layout_width="wrap_content"
