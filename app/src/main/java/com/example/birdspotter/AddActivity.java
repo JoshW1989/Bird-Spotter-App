@@ -38,6 +38,7 @@ public class AddActivity extends AppCompatActivity {
     private EditText editTextDateY;
     public TextView selectedText;
     public  String   submitName;
+    public boolean canSubmit = false;
 
 
     
@@ -146,6 +147,8 @@ public class AddActivity extends AppCompatActivity {
                 editTextDateM.getText().toString().contentEquals("") ||
                 editTextDateY.getText().toString().contentEquals("")) {
             Toast.makeText(this, "Date cannot be blank!", Toast.LENGTH_LONG).show();
+        } else if (canSubmit == false) {
+            Toast.makeText(this, "You must select a bird!", Toast.LENGTH_LONG).show();
         } else {
 
             //used for date check
@@ -206,5 +209,9 @@ public class AddActivity extends AppCompatActivity {
 
         // Pass to the database or submission
         submitName = selectedText.getText().toString();
+
+        // flags if user has selected a bird
+        canSubmit = true;
+
     }
 }
