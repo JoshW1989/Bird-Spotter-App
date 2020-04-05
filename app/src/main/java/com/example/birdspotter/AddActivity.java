@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModelProviders;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.util.Log;
@@ -34,6 +36,7 @@ public class AddActivity extends AppCompatActivity {
     private EditText editTextDateD;
     private EditText editTextDateM;
     private EditText editTextDateY;
+    public TextView selectedText;
     public  String   submitName;
 
 
@@ -53,10 +56,6 @@ public class AddActivity extends AppCompatActivity {
 
         LayoutInflater inflater = LayoutInflater.from(this);
 
-
-
-
-
         for (int i = 0; i < 6; i++) {
 
             View view = inflater.inflate(R.layout.bird_scroll, gallery, false);
@@ -69,6 +68,11 @@ public class AddActivity extends AppCompatActivity {
             imageView.setImageResource(R.drawable.birdpics + i);
 
             gallery.addView(view);
+
+            if (i == 0) {
+                selectedText = birdname;
+            }
+
         }
 
 
@@ -79,12 +83,6 @@ public class AddActivity extends AppCompatActivity {
         editTextDateY = findViewById(R.id.edit_text_DateY);
 
 
-
-
-
-
-
-            // here
         // Sets the back symbol as a button to go to home (this change is program wide)
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
         setTitle("Add new bird");
@@ -193,7 +191,20 @@ public class AddActivity extends AppCompatActivity {
     }
 
     public void birdClick(View view) {
-        TextView birdClicked = view.findViewById(R.id.birdnametext);
-        submitName = birdClicked.getText().toString();
+
+        // Set the current selectedText (assigned to the 1st in list as default) to normal.
+        selectedText.setAllCaps(false);
+        selectedText.setTypeface(null, Typeface.NORMAL);
+
+
+        // Assign selectedText to the one just clicked
+        selectedText = view.findViewById(R.id.birdnametext);
+
+        // Add the new values
+        selectedText.setTypeface(null,Typeface.BOLD_ITALIC);
+        selectedText.setAllCaps(true);
+
+        // Pass to the database or submission
+        submitName = selectedText.getText().toString();
     }
 }

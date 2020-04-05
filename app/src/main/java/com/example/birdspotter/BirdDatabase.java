@@ -12,7 +12,7 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 // Ties the Bird Dao to the Bird class and creates database
-@Database(entities = {Bird.class}, version = 1)
+@Database(entities = {Bird.class}, version = 1, exportSchema = false)
 public abstract class BirdDatabase extends RoomDatabase {
 
     private static BirdDatabase instance;
